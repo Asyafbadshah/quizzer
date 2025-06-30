@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:quizzer/first_screen.dart';
+import 'package:quizzer/fivescreen.dart';
 import 'package:quizzer/second_screen.dart';
 import 'package:quizzer/thrid_screen.dart';
 
 import 'examplepagview.dart';
+import 'fourscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home:  FirstScreen(),
+      home: Fourscreen (),
     );
   }
 }

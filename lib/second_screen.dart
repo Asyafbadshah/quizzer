@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
+import 'package:quizzer/first_screen.dart';
 import 'package:quizzer/thrid_screen.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -80,7 +81,9 @@ class _SecondScreenState extends State<SecondScreen> {
             CircleAvatar(
               backgroundColor: Colors.white,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FirstScreen()));
+                },
                 icon: Icon(CupertinoIcons.arrow_left),
               ),
             ),
