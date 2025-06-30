@@ -6,6 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizzer/first_screen.dart';
 import 'package:quizzer/second_screen.dart';
+import 'package:quizzer/sixscreen.dart';
 
 
 class ThridScreen extends StatefulWidget {
@@ -227,7 +228,7 @@ class _ThridScreenState extends State<ThridScreen> {
                                       ),),
 
                                     onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FirstScreen()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Sixscreen()));
                                     }, child: Text("confirm",style: TextStyle(fontSize: 16,color: Colors.white, fontWeight: FontWeight.w500),)
                                   ),
                               ElevatedButton(

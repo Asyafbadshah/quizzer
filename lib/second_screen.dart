@@ -37,7 +37,6 @@ class _SecondScreenState extends State<SecondScreen> {
     ['Facebook', 'Google', 'Apple'],
   ];
 
-
   double percent = 0.0;
   Timer? timer;
 
@@ -48,6 +47,7 @@ class _SecondScreenState extends State<SecondScreen> {
   void initState() {
     super.initState();
     startTimer();
+
   }
 
   void startTimer() {
@@ -68,6 +68,7 @@ class _SecondScreenState extends State<SecondScreen> {
     timer?.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +83,10 @@ class _SecondScreenState extends State<SecondScreen> {
               backgroundColor: Colors.white,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FirstScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FirstScreen()),
+                  );
                 },
                 icon: Icon(CupertinoIcons.arrow_left),
               ),
@@ -144,27 +148,26 @@ class _SecondScreenState extends State<SecondScreen> {
                       ],
                     ),
                   ),
-                  child:  Center(
+                  child: Center(
                     child: Text(
                       textAlign: TextAlign.center,
                       questions[questionIndex],
-                      style: TextStyle(fontSize: 20,color: Colors.white,),)
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
                   ),
+                ),
 
-                  ),
-
-                SizedBox(height: 6,),
+                SizedBox(height: 6),
 
                 Expanded(
-                  child:  PageView.builder(
+                  child: PageView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     controller: pc,
                     itemCount: questions.length,
                     onPageChanged: (index) {
                       setState(() {
                         currentIndex = index;
-                        questionIndex=index;
-
+                        questionIndex = index;
                       });
                     },
                     itemBuilder: (context, questionIndex) {
@@ -173,16 +176,18 @@ class _SecondScreenState extends State<SecondScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             SizedBox(height: 10),
 
                             // Options
-                            ...List.generate(options[questionIndex].length, (optionIndex) {
+                            ...List.generate(options[questionIndex].length, (
+                              optionIndex,
+                            ) {
                               bool isSelected =
                                   selectedAnswers[questionIndex] == optionIndex;
                               bool isCorrect =
                                   correctAnswers[questionIndex] == optionIndex;
-                              bool selectedWrong = isSubmitted &&
+                              bool selectedWrong =
+                                  isSubmitted &&
                                   isSelected &&
                                   !isCorrect; // selected but incorrect
 
@@ -194,52 +199,65 @@ class _SecondScreenState extends State<SecondScreen> {
                                 if (isSelected && isCorrect) {
                                   optionColor = Colors.green.shade100;
                                   borderColor = Colors.green;
-                                  icon = Icon(Icons.check_circle, color: Colors.green);
-                                } else
-                                if (isSelected && !isCorrect) {
+                                  icon = Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  );
+                                } else if (isSelected && !isCorrect) {
                                   optionColor = Colors.red.shade100;
                                   borderColor = Colors.red;
                                   icon = Icon(Icons.cancel, color: Colors.red);
-                                } else  {
+                                } else {
                                   optionColor = Colors.grey.shade100;
                                   borderColor = Colors.deepPurple.shade200;
-                                  icon = Icon(Icons.radio_button_unchecked,
-                                      color: Colors.deepPurple.shade200);
+                                  icon = Icon(
+                                    Icons.radio_button_unchecked,
+                                    color: Colors.deepPurple.shade200,
+                                  );
                                 }
-                              }
-                              else if (isSelected && isCorrect) {
+                              } else if (isSelected && isCorrect) {
                                 // Show correct option as green (always)
                                 optionColor = Colors.green.shade100;
                                 borderColor = Colors.green;
-                                icon = Icon(Icons.check_circle, color: Colors.green);
-                              }
-                              else if (isSelected && !isCorrect) {
+                                icon = Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                );
+                              } else if (isSelected && !isCorrect) {
                                 // Show selected wrong option as red
                                 optionColor = Colors.red.shade100;
                                 borderColor = Colors.red;
                                 icon = Icon(Icons.cancel, color: Colors.red);
-                              } else if (
-                              selectedAnswers[questionIndex] != -1 && // answer selected
-                                  correctAnswers[questionIndex] == optionIndex // this is the correct one
-                              ) {
+                              } else if (selectedAnswers[questionIndex] !=
+                                      -1 && // answer selected
+                                  correctAnswers[questionIndex] ==
+                                      optionIndex // this is the correct one
+                                      ) {
                                 optionColor = Colors.green.shade100;
                                 borderColor = Colors.green;
-                                icon = Icon(Icons.check_circle, color: Colors.green);
-                              }
-                              else {
+                                icon = Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                );
+                              } else {
                                 // All unselected and incorrect options
                                 optionColor = Colors.grey.shade100;
                                 borderColor = Colors.deepPurple.shade200;
-                                icon = Icon(Icons.radio_button_unchecked,
-                                    color: Colors.deepPurple.shade200);
+                                icon = Icon(
+                                  Icons.radio_button_unchecked,
+                                  color: Colors.deepPurple.shade200,
+                                );
                               }
 
                               return GestureDetector(
                                 onTap: () {
                                   if (!isSubmitted) {
                                     setState(() {
-                                      selectedAnswers[questionIndex] = optionIndex;
-                                      isCorrect = correctAnswers[questionIndex] == optionIndex;
+                                      selectedAnswers[questionIndex] =
+                                          optionIndex;
+                                      isCorrect =
+                                          correctAnswers[questionIndex] ==
+                                          optionIndex;
                                     });
                                   }
                                 },
@@ -292,41 +310,60 @@ class _SecondScreenState extends State<SecondScreen> {
                                   )
                                 else
                                   SizedBox(width: 100),
-
                                 if (questionIndex < questions.length - 1)
                                   ElevatedButton(
                                     onPressed: () {
-                                      pc.nextPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut,
-                                      );
+                                      if (selectedAnswers[questionIndex] != -1) {
+                                        pc.nextPage(
+                                          duration:
+                                          Duration(milliseconds: 300),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                "Please select an option before proceeding."),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
                                     },
                                     child: Text("Next"),
                                   )
+
                                 else
                                   ElevatedButton(
-                                  onPressed: () {
-                      setState(() {
-                      isSubmitted = true;
-                      });
+                                    onPressed: () {
+                                      setState(() {
+                                        isSubmitted = true;
+                                      });
 
-                      int correctCount = 0;
-                      for (int i = 0; i < selectedAnswers.length; i++) {
-                      if (selectedAnswers[i] == correctAnswers[i]) {
-                      correctCount++;
-                      }
-                      }
+                                      int correctCount = 0;
+                                      for (
+                                        int i = 0;
+                                        i < selectedAnswers.length;
+                                        i++
+                                      ) {
+                                        if (selectedAnswers[i] ==
+                                            correctAnswers[i]) {
+                                          correctCount++;
+                                        }
+                                      }
 
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (_) => ThridScreen(
-                      correctCount: correctCount,
-                      totalQuestions: questions.length,
-                      ),
-                      ),
-                      );
-                      },
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (_) => ThridScreen(
+                                                correctCount: correctCount,
+                                                totalQuestions:
+                                                    questions.length,
+                                              ),
+                                        ),
+                                      );
+                                    },
                                     child: Text("Submit"),
                                   ),
                               ],
@@ -336,7 +373,6 @@ class _SecondScreenState extends State<SecondScreen> {
                       );
                     },
                   ),
-
                 ),
               ],
             ),
